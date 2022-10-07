@@ -13,7 +13,6 @@ CREATE TABLE t_budgets (
     PRIMARY KEY (a_shop_id, a_month)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
 INSERT INTO t_shops
     (a_id,  a_name,             a_online)
 VALUES
