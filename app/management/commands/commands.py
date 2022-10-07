@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.utils import timezone
+from app.models import Shops, Budgets
 
 class Command(BaseCommand):
     help = 'Displays current time'
@@ -7,3 +8,6 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         time = timezone.now().strftime('%X')
         self.stdout.write("It's now %s" % time)
+        print(Shops.objects.all())
+        print(Budgets.objects.all())
+        # python manage.py dumpdata > app/fixtures/db.json
