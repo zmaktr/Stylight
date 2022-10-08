@@ -3,7 +3,7 @@ from django.db import models
 class Shops(models.Model):
     a_id                = models.AutoField(primary_key=True)
     a_name              = models.CharField(max_length=255)
-    a_online            = models.BooleanField() # models.IntegerField()
+    a_online            = models.BooleanField() 
 
     class Meta:
         managed         = False
