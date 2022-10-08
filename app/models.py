@@ -1,4 +1,3 @@
-import imp
 from django.db import models
 
 class Shops(models.Model):
@@ -7,7 +6,7 @@ class Shops(models.Model):
     a_online            = models.BooleanField() # models.IntegerField()
 
     class Meta:
-        # managed         = False
+        managed         = False
         db_table        = 't_shops'
 
 class Budgets(models.Model):
@@ -17,8 +16,9 @@ class Budgets(models.Model):
     a_budget_amount     = models.DecimalField(max_digits=10, decimal_places=2)
     a_amount_spent      = models.DecimalField(max_digits=10, decimal_places=2)
     a_notify_at_half    = models.BooleanField(null=True)
+
     class Meta:
-        # managed         = False
+        managed         = False
         db_table        = 't_budgets'
         unique_together = (('a_shop_id', 'a_month'),)
 
