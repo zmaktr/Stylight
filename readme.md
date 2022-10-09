@@ -15,7 +15,7 @@ Setup Environment
 
 ```bash
   pip install virtualenv
-  pip -m venv venv
+  python -m venv venv
   source venv/scripts/activate (Mac)
   venv/scripts/activate (Windows)
 ```
