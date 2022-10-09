@@ -8,8 +8,6 @@ environ.Env.read_env()
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 INSTALLED_APPS = (    
-    # 'django.contrib.contenttypes',
-    'django_dump_load_utf8',
     'app', 
 )
 
