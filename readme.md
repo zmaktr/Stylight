@@ -8,7 +8,7 @@ Clone repository
 
 ```bash
   git clone https://<token>@github.com/zmaktr/Stylight.git
-  cd <dir>
+  cd stylight
 ```
 
 Setup Environment
