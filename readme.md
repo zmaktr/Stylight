@@ -1,6 +1,6 @@
 # Stylight Assignment
 
-This is a prescreening assesment test for intrested candidates applying for development job at stylight.
+This is a pre screening assessment test for interested candidates applying for development job at stylight.
 
 ## Setting up the project
 
@@ -8,14 +8,14 @@ Clone repository
 
 ```bash
   git clone https://<token>@github.com/zmaktr/Stylight.git
-  cd <dir>
+  cd stylight
 ```
 
 Setup Environment
 
 ```bash
   pip install virtualenv
-  pip -m venv venv
+  python -m venv venv
   source venv/scripts/activate (Mac)
   venv/scripts/activate (Windows)
 ```
@@ -45,7 +45,7 @@ Import DB files to MySQL
 
 ## Execute CLI command
 
-This CLI command will result in implementing newly developed functionality for this assignment
+This CLI command will result in executing newly developed functionality and will update the db accordingly.
 
 ```bash
   py manage.py commands
@@ -53,9 +53,9 @@ This CLI command will result in implementing newly developed functionality for t
 
 ## Assumptions
 
-- Stylight will be running this script multiple time in any particular month or day to update shop clients about their shop status.
-- In the database we have to look for the latest month data and only do operations on it.
-- Shops that are currently `offline` for the latest month due to full budget consumption need not to be notified.
+- Stylight will be running this script multiple time in any particular month or day to notify shop clients about their shop status.
+- In the database i have to look for latest month data and perform operations on it. 
+- Shops that are currently `offline` due to full budget consumption need not to be notified.
 
 ## Tech Stack
 
@@ -67,28 +67,28 @@ This CLI command will result in implementing newly developed functionality for t
 
 ## Change in DB (migrations.sql)
 
-Some change were made in the DB structure to adjust it to limitations of Django ORM. Django doesnt support composite primary keys. So the `t_budgets` pk was droped and a new column for auto-increment pk was created named `a_id`.
+Some change were made in the DB structure to adjust it to limitations of Django ORM. Django doesnt support composite primary keys. So the `t_budgets` table primary key was droped and a new column for primary key was created named `a_id`. This is set to auto-increment field.
 
-A constraint for `t_budget` table was added because pk was dropped. This is done to ensuring composite unique values for `a_shop_id` and `a_month`.
+A constraint for `t_budget` table was added because primary key was dropped. This is done to ensuring composite unique values for `a_shop_id` and `a_month`.
 
-A new column inside `t_budgets` named `a_notify_at_half` is included to avoid duplicate notifications send to shop clients each time the script is run for a particular month.
+A new column inside `t_budgets` named `a_notify_at_half` is included to avoid duplicate notifications send to shop clients assuming that script has to be run multiple times.
 
 ## Questions
 
 ### Does your solution avoid sending duplicate notifications?
 
-For notifications when budget exceeds more than 50% assigned for the current month i have added an additional column inside the `t_budget` table named `a_notify_at_half` to deal with this issue. Once the notification is sent for the current month the shop is marked `True`. If the script is run again it it will check for previous status and wont send duplicate notifications.
+For notifications when budget exceeds more than 50% assigned for the month i have added an additional column inside the `t_budget` table named `a_notify_at_half` to deal with this issue. Once the notification is sent for the month the `a_notify_at_half` is marked `True`. If the script is run again it it will check for previous status and wont send duplicate notifications.
 
-For the second part when budget exceeds 100% the shop client is notified and shop status in set to `offline` inside the `t_shops` table \. So if the script is run again it will check the the shop status if `offline` no duplicate notification is sent.
+For the second part when budget exceeds 100% the shop client is notified and shop status in set to `offline`. So if the script is run again it will check the the shop status if `offline` no duplicate notification is sent.
 
 ### How does your solution handle a budget change after a notification has already been sent?
 
-If the budget is changed it would be best to run a script along with it taking care of two things
+If the budget is changed it would be best to run a script along with the change to taking care of two things
 
-- Check the shop status if the total budget is > than expenditure set the shop status to `online`
-- If the expenditure to date as a percentage of total budget is < 50 set `a_notify_at_half` status to `False`
+- Check the shop status if the total budget is > than expenditure then set the shop status to `online`
+- If the expenditure to date as a percentage of total budget is < 50 percent set `a_notify_at_half` status to `False`
 
-If the above is done correctly my functionality will adopt to the system change perfectly.
+If the above is done correctly my functionality will adopt to the new budget change perfectly.
 
 ## Some resourses utilized over the internet
 
